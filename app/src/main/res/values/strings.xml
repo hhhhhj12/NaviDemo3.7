@@ -1,0 +1,209 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
+    <string name="app_name">Navi</string>
+    <string name="app_name_2">DataCollect</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+
+
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">个性化设置</string>
+    <string name="generate_report">生成分析报表</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+
+    <string name="menu_datacollection">传感器数据采集</string>
+    <string name="menu_filelocation">查看文件保存位置</string>
+    <string name="menu_trackmap">轨迹地图</string>
+    <string name="menu_record">录制环境音</string>
+    <string name="menu_stress">活动记录</string>
+    <string name="menu_summary">历史活动总览</string>
+
+    <string name="btn_savelables">添加活动标签</string>
+    <string name="btn_uploadlables">上传活动标签</string>
+    <string name="unit">单位：分钟</string>
+
+    <string name="nav_name">请输入用户名：</string>
+    <string name="nav_email">xiaoming@android.com</string>
+    <string name="title_activity_scrolling">活动分析与建议</string>
+    <!--  ScrollingActivity -->
+    <string name="analysis">活动分析与建议</string>
+    <string name="suggustion_good">今天花了大量时间进行学习，很棒！但建议也要适当参加体育运动或者进行适当的放松</string>
+    <string name="large_text">
+
+        "Material is the metaphor.\n\n"
+
+        "A material metaphor is the unifying theory of a rationalized space and a system of motion."
+        "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
+        "technologically advanced and open to imagination and magic.\n"
+        "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
+        "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
+        "flexibility of the material creates new affordances that supercede those in the physical "
+        "world, without breaking the rules of physics.\n"
+        "The fundamentals of light, surface, and movement are key to conveying how objects move, "
+        "interact, and exist in space and in relation to each other. Realistic lighting shows "
+        "seams, divides space, and indicates moving parts.\n\n"
+
+        "Bold, graphic, intentional.\n\n"
+
+        "The foundational elements of print based design typography, grids, space, scale, color, "
+        "and use of imagery guide visual treatments. These elements do far more than please the "
+        "eye. They create hierarchy, meaning, and focus. Deliberate color choices, edge to edge "
+        "imagery, large scale typography, and intentional white space create a bold and graphic "
+        "interface that immerse the user in the experience.\n"
+        "An emphasis on user actions makes core functionality immediately apparent and provides "
+        "waypoints for the user.\n\n"
+
+        "Motion provides meaning.\n\n"
+
+        "Motion respects and reinforces the user as the prime mover. Primary user actions are "
+        "inflection points that initiate motion, transforming the whole design.\n"
+        "All action takes place in a single environment. Objects are presented to the user without "
+        "breaking the continuity of experience even as they transform and reorganize.\n"
+        "Motion is meaningful and appropriate, serving to focus attention and maintain continuity. "
+        "Feedback is subtle yet clear. Transitions are efﬁcient yet coherent.\n\n"
+
+        "3D world.\n\n"
+
+        "The material environment is a 3D space, which means all objects have x, y, and z "
+        "dimensions. The z-axis is perpendicularly aligned to the plane of the display, with the "
+        "positive z-axis extending towards the viewer. Every sheet of material occupies a single "
+        "position along the z-axis and has a standard 1dp thickness.\n"
+        "On the web, the z-axis is used for layering and not for perspective. The 3D world is "
+        "emulated by manipulating the y-axis.\n\n"
+
+        "Light and shadow.\n\n"
+
+        "Within the material environment, virtual lights illuminate the scene. Key lights create "
+        "directional shadows, while ambient light creates soft shadows from all angles.\n"
+        "Shadows in the material environment are cast by these two light sources. In Android "
+        "development, shadows occur when light sources are blocked by sheets of material at "
+        "various positions along the z-axis. On the web, shadows are depicted by manipulating the "
+        "y-axis only. The following example shows the card with a height of 6dp.\n\n"
+
+        "Resting elevation.\n\n"
+
+        "All material objects, regardless of size, have a resting elevation, or default elevation "
+        "that does not change. If an object changes elevation, it should return to its resting "
+        "elevation as soon as possible.\n\n"
+
+        "Component elevations.\n\n"
+
+        "The resting elevation for a component type is consistent across apps (e.g., FAB elevation "
+        "does not vary from 6dp in one app to 16dp in another app).\n"
+        "Components may have different resting elevations across platforms, depending on the depth "
+        "of the environment (e.g., TV has a greater depth than mobile or desktop).\n\n"
+
+        "Responsive elevation and dynamic elevation offsets.\n\n"
+
+        "Some component types have responsive elevation, meaning they change elevation in response "
+        "to user input (e.g., normal, focused, and pressed) or system events. These elevation "
+        "changes are consistently implemented using dynamic elevation offsets.\n"
+        "Dynamic elevation offsets are the goal elevation that a component moves towards, relative "
+        "to the component’s resting state. They ensure that elevation changes are consistent "
+        "across actions and component types. For example, all components that lift on press have "
+        "the same elevation change relative to their resting elevation.\n"
+        "Once the input event is completed or cancelled, the component will return to its resting "
+        "elevation.\n\n"
+
+        "Avoiding elevation interference.\n\n"
+
+        "Components with responsive elevations may encounter other components as they move between "
+        "their resting elevations and dynamic elevation offsets. Because material cannot pass "
+        "through other material, components avoid interfering with one another any number of ways, "
+        "whether on a per component basis or using the entire app layout.\n"
+        "On a component level, components can move or be removed before they cause interference. "
+        "For example, a floating action button (FAB) can disappear or move off screen before a "
+        "user picks up a card, or it can move if a snackbar appears.\n"
+        "On the layout level, design your app layout to minimize opportunities for interference. "
+        "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
+        "when a user tries to pick up one of cards.\n\n"
+    </string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <!--    <string name="app_name">ExtraSensory</string>-->
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settingss">设置</string>
+    <string name="tab_home_tag">主页</string>
+    <string name="tab_summary_tag">总览</string>
+    <string name="tab_history_tag">历史</string>
+    <string name="tab_home_indicator">主页指示</string>
+    <string name="tab_summary_indicator">总览指示</string>
+    <string name="tab_history_indicator">历史指示</string>
+    <string name="data_collection_label">马上开启数据采集！❛‿˂̵✧    ------> </string>
+    <string name="data_collection_on">on</string>
+    <string name="data_collection_off">off</string>
+    <string name="database_name">extra_sensory数据集</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="action_active_feedback">下一步行动</string>
+    <string name="title_activity_setting">活动设置</string>
+    <string name="title_activity_feedback">反馈</string>
+    <string name="dialog_title">ExtraSensory</string>
+    <string name="message_cant_report_zero_labels">反馈必须有一些标签</string>
+    <string name="api_upload_zip">上传传感器数据</string>
+    <string name="api_feedback">用户标签</string>
+    <string name="REC">REC</string>
+    <string name="need_google_play_services_message">ExtraSensory需要你拥有Google Play服务才能使用定位服务。请更新Google Play服务!</string>
+    <string name="set_google_play_button">设置Google Play</string>
+    <string name="cancel">取消</string>
+    <string name="need_google_play_services_title"></string>
+    <string name="title_activity_selection_from_list"></string>
+    <string name="previous_history">前一天</string>
+    <string name="next_history">下一天</string>
+    <string name="button_text">发送反馈</string>
+    <string name="currently_storing_text">当前存储的示例:</string>
+    <string name="done_selecting_from_list">完成</string>
+    <string name="uuid_label">UUID:</string>
+    <string name="max_storage_label">Max存储的实例:</string>
+    <string name="notification_interval">通知时间间隔</string>
+    <string name="location_bubble_header">位置隐藏气泡:</string>
+    <string name="location_bubble_on">on</string>
+    <string name="location_bubble_off">off</string>
+    <string name="latitude_label">纬度</string>
+    <string name="longitude_label">经度</string>
+    <string name="location_bubble_update_button_label">更新纬度/经度</string>
+    <string name="currently_waiting_feedback_text">等待发送反馈:</string>
+    <string name="use_secure_communication">使用安全通信:</string>
+    <string name="https_on">on</string>
+    <string name="https_off">off</string>
+    <string name="alert_for_active_feedback_while_data_collection_off">数据收集已停止。不能做主动反馈。</string>
+    <string name="ok_button_text">O.K.</string>
+    <string name="home_sensing_off">no</string>
+    <string name="home_sensing_on">yes</string>
+    <string name="use_home_sensing">居家检测</string>
+    <string name="allow_cellular">允许蜂窝通信:</string>
+    <string name="cellular_off">off</string>
+    <string name="cellular_on">on</string>
+    <string name="num_examples_store_before_send">发送前需要存储的示例数:</string>
+    <string name="send_stored_examples">发送存储示例</string>
+    <string name="researcher_settings_label">研究人员设置:</string>
+    <string name="classifier_type_label">分类器类型:</string>
+    <string name="classifier_name_label">分类名称:</string>
+    <string name="classifier_update_button_label">更新设置</string>
+    <string name="classifier_settings_header">分类器选择\n（敬请期待）</string>
+    <string name="classifier_settings_off">keep(off)</string>
+    <string name="classifier_settings_on">edit(on)</string>
+    <string name="record_audio_label">Audio(音频)</string>
+    <string name="should_we_record_label">要启用的传感器：</string>
+    <string name="record_location_label">位置</string>
+    <string name="record_watch_label">智能手表(敬请期待)</string>
+    <string name="high_freq_sensors_label">高频(40Hz):</string>
+    <string name="low_freq_sensors_label">低频(每分钟一次):</string>
+    <string name="use_notifications">通知</string>
+    <string name="notifications_on">on</string>
+    <string name="notifications_off">off</string>
+    <string name="save_pred_files">保存预测文件:</string>
+    <string name="save_pred_files_on">on</string>
+    <string name="save_pred_files_off">off</string>
+    <string name="dummy_main_activity">不确定</string>
+    <string name="checkbox_use_near_past_notifications">记录过去的活动</string>
+    <string name="checkbox_use_near_future_notifications">报告未来可能进行的活动</string>
+    <string name="save_user_labels_files">保存用户标签文件:</string>
+    <string name="not_sure_dummy_label">not sure</string>
+    <string name="text_basic_time_unit">时间分辨率</string>
+</resources>

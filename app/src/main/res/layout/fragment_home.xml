@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/mScro"
+    >
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.HomeFragment">
+
+    <TextView
+        android:id="@+id/text_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    <cn.edu.cdut.navidemo3.RoundRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.baidu.mapapi.map.MapView
+            android:id="@+id/bmapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:visibility="invisible"/>
+
+
+
+        <cn.edu.cdut.navidemo3.RoundRelativeLayout
+            android:id="@+id/locationInfo_R"
+            android:layout_width="150dp"
+            android:layout_height="140dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="30dp"
+            android:background="#81D8CF"
+            android:padding="5dp"
+            android:elevation="3dp">
+            <TextView
+                android:id="@+id/locationInfo"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:src="@drawable/ic_baseline_my_location_24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true">
+
+            </ImageView>
+        </cn.edu.cdut.navidemo3.RoundRelativeLayout>
+
+
+        <cn.edu.cdut.navidemo3.RoundRelativeLayout
+            android:id="@+id/Img_R"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/locationInfo_R"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="20dp"
+            android:elevation="3dp"
+            android:background="@color/white"
+            android:padding="5dp">
+            <TextView
+                android:id="@+id/text_loc"
+                android:text="你现在在教学楼"
+                android:textSize="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </TextView>
+            <ImageView
+                android:id="@+id/Img_loc"
+                android:src="@drawable/classroom"
+                android:layout_width="140dp"
+                android:layout_height="90dp"
+                android:layout_below="@+id/text_loc"
+                />
+        </cn.edu.cdut.navidemo3.RoundRelativeLayout>
+
+
+        <cn.edu.cdut.navidemo3.RoundRelativeLayout
+            android:id="@+id/accInfo_R"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="180dp"
+            android:layout_marginTop="50dp"
+            android:layout_below="@+id/locationInfo_R"
+            android:background="#b2846f"
+            android:padding="5dp"
+            android:elevation="3dp">
+            <TextView
+                android:id="@+id/accInfo"
+                android:text="accInfo"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            <ImageView
+                android:src="@drawable/ic_baseline_speed_24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true">
+
+            </ImageView>
+        </cn.edu.cdut.navidemo3.RoundRelativeLayout>
+
+
+        <cn.edu.cdut.navidemo3.RoundRelativeLayout
+            android:id="@+id/gyroscopeInfo_R"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="40dp"
+            android:layout_below="@+id/accInfo_R"
+            android:background="#FBD26A"
+            android:padding="5dp"
+            android:elevation="3dp">
+            <TextView
+                android:id="@+id/gyroscopeInfo"
+
+                android:text="angular velocity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            <ImageView
+                android:src="@drawable/ic_baseline_360_24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true">
+
+            </ImageView>
+        </cn.edu.cdut.navidemo3.RoundRelativeLayout>
+
+        <cn.edu.cdut.navidemo3.RoundRelativeLayout
+            android:id="@+id/gyroscope2Info_R"
+            android:layout_width="180dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="130dp"
+            android:layout_below="@+id/gyroscopeInfo_R"
+            android:background="#40E0D0"
+            android:padding="5dp"
+            android:elevation="3dp">
+            <TextView
+                android:id="@+id/gyroscope2Info"
+                android:text="gyroscopeInfo"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            <ImageView
+                android:src="@drawable/ic_baseline_sports_baseball_24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true">
+
+            </ImageView>
+        </cn.edu.cdut.navidemo3.RoundRelativeLayout>
+
+        <cn.edu.cdut.navidemo3.RoundRelativeLayout
+            android:id="@+id/screenInfo_R"
+            android:layout_width="180dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="50dp"
+            android:layout_below="@+id/gyroscope2Info_R"
+            android:background="#B3BABA"
+            android:padding="5dp"
+            android:elevation="3dp">
+            <TextView
+                android:id="@+id/screenInfo"
+                android:text="screenInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                />
+            <ImageView
+                android:src="@drawable/ic_baseline_phone_iphone_24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true">
+
+            </ImageView>
+        </cn.edu.cdut.navidemo3.RoundRelativeLayout>
+
+
+        <Button
+            android:id="@+id/btn_startRecorder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开始or结束记录数据"
+            android:layout_below="@+id/screenInfo_R"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="30dp"
+            >
+        </Button>
+
+        <Button
+            android:id="@+id/btn_savedata"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="保存数据"
+            android:layout_below="@+id/screenInfo_R"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="30dp">
+
+        </Button>
+
+
+        <ImageView
+            android:id="@+id/img_phone3"
+            android:src="@drawable/phone3"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/locationInfo_R"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="60dp">
+        </ImageView>
+
+        <ImageView
+            android:id="@+id/img_phone_roll"
+            android:src="@drawable/phone_roll"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginTop="30dp"
+            android:layout_below="@id/accInfo_R"
+            android:layout_marginLeft="210dp">
+        </ImageView>
+
+        <ImageView
+            android:id="@+id/img_gyro"
+            android:src="@drawable/gyro"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_below="@+id/gyroscopeInfo_R"
+            android:layout_marginTop="50dp"
+            >
+        </ImageView>
+
+        <ImageView
+            android:id="@+id/img_light"
+            android:src="@drawable/ic_baseline_light_mode_24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/screenInfo_R"
+            android:layout_below="@id/gyroscope2Info_R">
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/text_voicecatch"
+            android:text="音频采集中:"
+            android:textSize="15sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="130dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </TextView>
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/voice_wave"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:lottie_autoPlay="false"
+            android:layout_toRightOf="@+id/text_voicecatch"
+            android:layout_alignParentTop="true"
+            app:lottie_rawRes="@raw/sound_voice_waves"
+            android:visibility="visible"
+            app:lottie_loop="true"
+            android:elevation="10px">
+        </com.airbnb.lottie.LottieAnimationView>
+
+
+        <cn.edu.cdut.navidemo3.RoundRelativeLayout
+            android:id="@+id/developer_R"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_startRecorder"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#C8EBFA"
+            android:elevation="3dp"
+            android:padding="5dp"
+            tools:ignore="MissingConstraints">
+
+            <CheckBox
+                android:id="@+id/CB_isdeveloper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:text="我是开发人员" />
+
+            <RadioGroup
+                android:id="@+id/RBG_act"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/CB_isdeveloper"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <RadioButton
+                    android:id="@+id/RB_static"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="静止" />
+
+                <RadioButton
+                    android:id="@+id/RB_walk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="走路" />
+
+                <RadioButton
+                    android:id="@+id/RB_run"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="跑步" />
+            </RadioGroup>
+
+            <RadioGroup
+                android:id="@+id/RBG_loc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/RBG_act"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <RadioButton
+                    android:id="@+id/RB_sushe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="宿舍" />
+
+                <RadioButton
+                    android:id="@+id/RB_classroom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="教室" />
+
+                <RadioButton
+                    android:id="@+id/RB_fantang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="饭堂" />
+
+                <RadioButton
+                    android:id="@+id/RB_shiyanshi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="实验室" />
+            </RadioGroup>
+
+
+            <RadioGroup
+                android:id="@+id/RBG_sound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/RBG_loc"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <RadioButton
+                    android:id="@+id/RB_anjing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="安静" />
+
+                <RadioButton
+                    android:id="@+id/RB_caoza"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="嘈杂" />
+
+            </RadioGroup>
+            <Button
+                android:id="@+id/btn_savesettings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/RBG_sound"
+                android:layout_alignParentRight="true"
+                android:text="保存设置"
+                android:visibility="gone">
+
+            </Button>
+        </cn.edu.cdut.navidemo3.RoundRelativeLayout>
+    </cn.edu.cdut.navidemo3.RoundRelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

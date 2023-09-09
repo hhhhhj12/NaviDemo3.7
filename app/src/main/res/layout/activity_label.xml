@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LabelActivity"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"/>
+    <CalendarView
+        android:id="@+id/calendarViewId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <Button
+        android:id="@+id/add_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="添加数据" />
+
+    <Button
+        android:id="@+id/btn_selectDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="选择日期" />
+
+    <Button
+        android:id="@+id/btn_dropTable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="清空数据" />
+
+
+
+
+    <ListView
+        android:id="@+id/view_all"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</LinearLayout>
