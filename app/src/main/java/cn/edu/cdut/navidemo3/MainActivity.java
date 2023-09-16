@@ -9,6 +9,7 @@ import static cn.edu.cdut.navidemo3.ESApplication.getTheAppContext;
 import static cn.edu.cdut.navidemo3.extra.data.ESIntentService.LOG_TAG;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -37,6 +38,7 @@ import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -124,37 +126,39 @@ public class MainActivity extends BaseActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        //保存运行
-/*        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        powerManager = (PowerManager) getSystemService(POWER_SERVICE);
-        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-                "MyApp::MyWakelockTag");
-        wakeLock.acquire();*/
+        //向用户申请权限
+        requestPermissionToUser();
 
 
-        //testGet();
+    }
 
-
+    private  void requestPermissionToUser() {
         List<String> permissionList = new ArrayList<String>();
-        if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION )!= PackageManager.PERMISSION_GRANTED){
-            permissionList.add(android.Manifest.permission.ACCESS_FINE_LOCATION);
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION )!= PackageManager.PERMISSION_GRANTED){
+            permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION);
         }
-        if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.READ_PHONE_STATE )!= PackageManager.PERMISSION_GRANTED){
-            permissionList.add(android.Manifest.permission.READ_PHONE_STATE);
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_PHONE_STATE )!= PackageManager.PERMISSION_GRANTED){
+            permissionList.add(Manifest.permission.READ_PHONE_STATE);
         }
-        if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE )!= PackageManager.PERMISSION_GRANTED){
-            permissionList.add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE )!= PackageManager.PERMISSION_GRANTED){
+            permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
-        if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.READ_EXTERNAL_STORAGE )!= PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE )!= PackageManager.PERMISSION_GRANTED){
             permissionList.add(Manifest.permission.READ_EXTERNAL_STORAGE);
         }
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.RECORD_AUDIO )!= PackageManager.PERMISSION_GRANTED){
+            permissionList.add(Manifest.permission.RECORD_AUDIO);
+        }
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.INTERNET )!= PackageManager.PERMISSION_GRANTED){
+            permissionList.add(Manifest.permission.INTERNET);
+        }
 
-        //startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
-        //startActivity(new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION));
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-//            ActivityCompat.requestPermissions(MainActivity2.this,new String[]{Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION},1);
-//        }
+        if (permissionList.size()!=0){
+            // 请求权限
+            ActivityCompat.requestPermissions((Activity) this,permissionList.toArray((new String[permissionList.size()])), 0);
+        }
+
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R ||
                 Environment.isExternalStorageManager()) {
             //Toast.makeText(getContext(), "已获得访问所有文件的权限", Toast.LENGTH_SHORT).show();
@@ -163,10 +167,7 @@ public class MainActivity extends BaseActivity {
             Toast.makeText(getContext(), "请允许本软件获得访问所有文件的权限", Toast.LENGTH_SHORT).show();
             startActivity(intent);
         }
-
-
     }
-
 
 
     public static MainActivity getInstance(){

@@ -10,12 +10,14 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Environment;
@@ -23,10 +25,12 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 
 import java.io.File;
@@ -34,6 +38,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -52,7 +57,8 @@ import okhttp3.Response;
 public class MyService extends Service implements SensorEventListener {
     PowerManager.WakeLock wakeLock;
     private Handler handler = new Handler();
-    //private String[] labels = new String[]{"静止","走路","跑步","宿舍","教室","饭堂","实验室","安静","嘈杂"};
+
+    LocationManager mLocationManager;
     private String[] labels = new String[]{"static", "walk", "run", "dormitory", "classroom", "canteen", "lab", "quiet", "noisy"};
     StringBuilder currentAcc = new StringBuilder();
     StringBuilder currentgyroscope = new StringBuilder();
@@ -83,7 +89,7 @@ public class MyService extends Service implements SensorEventListener {
     float angleX = 0;
     float angleY = 0;
     float angleZ = 0;
-    Runnable runnable_acc_g,runnable_gps;
+    Runnable runnable_acc_g, runnable_gps;
     Timer timer;
     LocationManager locationManager;
 
@@ -122,13 +128,13 @@ public class MyService extends Service implements SensorEventListener {
         startForeground();
         //        sensorManager = (SensorManager) getActivity().getApplicationContext().getSystemService(SENSOR_SERVICE);
 
-        sensorManager   = (SensorManager) getApplication().getSystemService(SENSOR_SERVICE);
+        sensorManager = (SensorManager) getApplication().getSystemService(SENSOR_SERVICE);
         sensor_acc = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
         sensor_o = sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
 
         //SensorManager.SENSOR_DELAY_NORMAL
         sensorManager.registerListener(this, sensor_acc, SensorManager.SENSOR_DELAY_GAME);
-        sensorManager.registerListener(this,sensor_o,SensorManager.SENSOR_DELAY_GAME);
+        sensorManager.registerListener(this, sensor_o, SensorManager.SENSOR_DELAY_GAME);
 
 
         timer = new Timer();
@@ -138,7 +144,7 @@ public class MyService extends Service implements SensorEventListener {
 /*                Looper.prepare();
                 Toast.makeText(getApplicationContext(),"service",Toast.LENGTH_SHORT).show();
                 Looper.loop();*/
-                Log.v("wang","服务还活着....");
+                Log.v("wang", "服务还活着....");
 
                 //告诉home开始执行
 
@@ -169,16 +175,87 @@ public class MyService extends Service implements SensorEventListener {
                         handler.removeCallbacks(runnable_acc_g);
                     }
                 };
-                handler.postDelayed(runnable_stop,delayMillis);
+                handler.postDelayed(runnable_stop, delayMillis);
 
             }
-        },0,5*60000);/* 5*60000 */
+        }, 0, 5 * 60000);/* 5*60000 */
+    }
+
+    public  Location getLocation(Context context) {
+
+        /*获取LocationManager对象*/
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        String provider = getProvider(locationManager);
+        if (provider == null) {
+            Toast.makeText(context, "定位失败", Toast.LENGTH_SHORT).show();
+        }
+
+
+        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return null;
+        }
+        return locationManager.getLastKnownLocation(provider);
+    }
+
+    private Location getLastKnownLocation(Context context) {
+        mLocationManager = (LocationManager)getApplicationContext().getSystemService(LOCATION_SERVICE);
+        List<String> providers = mLocationManager.getProviders(true);
+        Location bestLocation = null;
+        for (String provider : providers) {
+            if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return null;
+            }
+            Location l = mLocationManager.getLastKnownLocation(provider);
+            if (l == null) {
+                continue;
+            }
+            if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
+                // Found best last known location: %s", l);
+                bestLocation = l;
+            }
+        }
+        return bestLocation;
+    }
+
+    /**
+     * 根据LocationManager获取定位信息的提供者
+     * @param locationManager
+     * @return
+     */
+    private  String getProvider(LocationManager locationManager){
+
+        //获取位置信息提供者列表
+        List<String> providerList = locationManager.getProviders(true);
+
+        if (providerList.contains(LocationManager.NETWORK_PROVIDER)){
+            //获取NETWORK定位
+            return LocationManager.NETWORK_PROVIDER;
+        }else if (providerList.contains(LocationManager.GPS_PROVIDER)){
+            //获取GPS定位
+            return LocationManager.GPS_PROVIDER;
+        }
+        return null;
     }
 
     private void startACC_Groscope_GPS() {
         int act = label.getInt("act", 1);
         int loc = label.getInt("loc", 4);
         int sound = label.getInt("sound", 8);
+
 
         //显示并保存加速度数据，40ms一次 (25Hz)
         runnable_acc_g = new Runnable() {
@@ -216,10 +293,15 @@ public class MyService extends Service implements SensorEventListener {
             public void run() {
                 handler.postDelayed(this,TimeForGPS);
                 if (isStartRecord==1) {
-                    String[] currentPositionDoubleArray = HomeFragment.getCurrentPositionDoubleArray();
-                    currentPosition.append(System.currentTimeMillis()).append(",")
-                            .append(currentPositionDoubleArray[0]).append(",")
-                            .append(currentPositionDoubleArray[1]).append("\n");
+                    //Location location = getLocation(getApplicationContext());
+                    Location location = getLastKnownLocation(getApplicationContext());
+
+                    if (location!=null){
+                        currentPosition.append(System.currentTimeMillis()).append(",")
+                                .append(location.getLatitude()).append(",")
+                                .append(location.getLongitude()).append("\n");
+                    }
+
                 }
             }
         };
@@ -276,7 +358,7 @@ public class MyService extends Service implements SensorEventListener {
         }
 
         timer.cancel();
-        //audioRecorder.stopRecord(getApplicationContext());
+        audioRecorder.stopRecord(getApplicationContext());
 
     }
 

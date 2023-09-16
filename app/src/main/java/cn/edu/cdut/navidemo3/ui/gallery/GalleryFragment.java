@@ -91,15 +91,12 @@ public class GalleryFragment extends Fragment {
     public static double[] locationLatLong = new double[2];
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        GalleryViewModel galleryViewModel =
-                new ViewModelProvider(this).get(GalleryViewModel.class);
+
 
         binding = FragmentGalleryBinding.inflate(inflater, container, false);
         btn_showTrace = binding.btnShowTrace;
         View root = binding.getRoot();
 
-        final TextView textView = binding.textGallery;
-        galleryViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

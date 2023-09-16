@@ -264,50 +264,8 @@ public class PressureScrollingFragment extends BaseTabFragment {
 
         SimpleDateFormat formatter= new SimpleDateFormat("MM_dd");
 
-        Button btn_savelables = getView().findViewById(R.id.btn_savelables);
-        btn_savelables.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                //这是以前的代码
-/*                Date date = new Date(System.currentTimeMillis());
-                StringBuilder theDayActivityData = new StringBuilder();
-                for (int i= 0; i < activityList.size(); i++) {
-                    //Log.d("ASDFGHJKL", activityList.get(i).toString());
-                    theDayActivityData.append(activityList.get(i).toString()).append("\n");
-                }
-                DeleteFolder(FILE_FOLDER + FOLDER_DAYACTIVITYDATA+ File.separator + _headerText);
-                WriteData2CSVThread myThread_saveposision = new WriteData2CSVThread(theDayActivityData,FILE_FOLDER + FOLDER_DAYACTIVITYDATA+ File.separator + _headerText,"theDayActivityData_data_" +_headerText+".csv");
-                myThread_saveposision.run();
-                theDayActivityData.setLength(0);
-                Toast.makeText(getContext(), "已保存", Toast.LENGTH_SHORT).show();*/
-                SharedPreferences preference = getActivity().getSharedPreferences("user",MODE_PRIVATE);
-                //Toast.makeText(getActivity(),""+preference.getString("name","请输入用户名：").contains("："),Toast.LENGTH_SHORT).show();
 
-                if (preference.getString("name","请输入用户名：").contains("：")){
-                    Toast.makeText(getActivity(),"请到导航栏中修改用户名！",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                //这是新版本
-                Intent intent = new Intent(getActivity(), LabelActivity.class);
-                startActivity(intent);
-
-            }
-        });
-
-        Button btn_uploadLables = getView().findViewById(R.id.btn_uploadlables);
-        btn_uploadLables.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    path = "/storage/emulated/0/upload/label1.db";
-                    uploadFile(path);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
 
 
         // Get the list view and set it using this adapter

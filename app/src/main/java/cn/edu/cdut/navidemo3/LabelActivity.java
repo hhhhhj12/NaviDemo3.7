@@ -114,6 +114,7 @@ public class LabelActivity extends AppCompatActivity {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+
                 String m = new String();
                 String d = new String();
                 if (month+1<10){

@@ -1,4 +1,4 @@
-package cn.edu.cdut.navidemo3;
+package cn.edu.cdut.navidemo3.ui.summary;
 
 
 import android.annotation.SuppressLint;
@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import cn.edu.cdut.navidemo3.R;
 import cn.edu.cdut.navidemo3.extra.data.BaseTabFragment;
 import cn.edu.cdut.navidemo3.extra.data.ESDatabaseAccessor;
 import cn.edu.cdut.navidemo3.extra.data.ESLabelStrings;

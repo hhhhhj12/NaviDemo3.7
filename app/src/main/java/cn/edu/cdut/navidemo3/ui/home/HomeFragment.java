@@ -103,9 +103,10 @@ public class HomeFragment extends Fragment implements SensorEventListener{
     LottieAnimationView animationView;
     TextView locationInfo;
     TextView accInfo;
-    TextView screenInfo;
-    TextView gyroscopeInfo;
+
+
     TextView gyroscope2Info;
+    TextView voiceRecording;
     RadioButton rb1,rb2,rb3,rb4,rb5,rb6,rb7,rb8,rb9;
     public AudioRecorder audioRecorder;
     Button btn_startRecorder;
@@ -133,7 +134,7 @@ public class HomeFragment extends Fragment implements SensorEventListener{
     StringBuilder currentAcc = new StringBuilder();
     StringBuilder currentSrc = new StringBuilder();
     StringBuilder currentSrc_HHMMSS = new StringBuilder();
-    StringBuilder currentAngularspeed = new StringBuilder();
+
     StringBuilder currentgyroscope = new StringBuilder();
     public static String[] locationLatLong = new String[2];
 
@@ -191,8 +192,7 @@ public class HomeFragment extends Fragment implements SensorEventListener{
     private float angle[] =new  float[3];
 
 
-    //1是屏幕熄灭状态
-    private int screenState = 1 ;
+
     private int isStartRecord = 0;
     SimpleDateFormat formatter= new SimpleDateFormat("MM_dd_HH_mm");
 
@@ -201,24 +201,18 @@ public class HomeFragment extends Fragment implements SensorEventListener{
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-
         sensorManager = (SensorManager) getActivity().getApplicationContext().getSystemService(SENSOR_SERVICE);
 
         sensor_acc = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
-        sensor_gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         sensor_o = sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
 
         //SensorManager.SENSOR_DELAY_NORMAL
         sensorManager.registerListener(this, sensor_acc, SensorManager.SENSOR_DELAY_GAME);
-        sensorManager.registerListener(this, sensor_gyroscope, SensorManager.SENSOR_DELAY_GAME);
         sensorManager.registerListener(this,sensor_o,SensorManager.SENSOR_DELAY_GAME);
 
         windowManager = (WindowManager) getActivity().getApplicationContext().getSystemService(WINDOW_SERVICE);
@@ -236,8 +230,8 @@ public class HomeFragment extends Fragment implements SensorEventListener{
 //        okHttpClient = new OkHttpClient.Builder().build();
         locationInfo = getActivity().findViewById(R.id.locationInfo);
         accInfo = getActivity().findViewById(R.id.accInfo);
-        screenInfo = getActivity().findViewById(R.id.screenInfo);
-        gyroscopeInfo = getActivity().findViewById(R.id.gyroscopeInfo);
+
+
         gyroscope2Info = getActivity().findViewById(R.id.gyroscope2Info);
 
         btn_startRecorder = getActivity().findViewById(R.id.btn_startRecorder);
@@ -251,6 +245,8 @@ public class HomeFragment extends Fragment implements SensorEventListener{
         RBG_act = getActivity().findViewById(R.id.RBG_act);
         RBG_loc = getActivity().findViewById(R.id.RBG_loc);
         RBG_sound = getActivity().findViewById(R.id.RBG_sound);
+        voiceRecording = getActivity().findViewById(R.id.text_voicecatch);
+        voiceRecording.setText("音频未采集");
 
         setRBG3();
 
@@ -269,8 +265,11 @@ public class HomeFragment extends Fragment implements SensorEventListener{
                 if (isStartRecord == 0){
                     //开始记录
                     isStartRecord = 1;
-                    //startAudioRecord();
                     Toast.makeText(getContext(),"已开始记录数据",Toast.LENGTH_SHORT).show();
+                    //开启动画
+                    animationView.playAnimation();
+                    voiceRecording.setText("音频采集中");
+
 
                     //每开始采集传感器数据30秒后停止
                     long delayMillis = 30000;
@@ -283,9 +282,7 @@ public class HomeFragment extends Fragment implements SensorEventListener{
                             if (isStartRecord==1){
                                 handler.postDelayed(this, delayMillis);
                                 isStartRecord = 0;
-//                                finishRecordAndSaveData();
 
-                                //audioRecorder.stopRecord(getContext());
                                 animationView.cancelAnimation();
                                 handler.removeCallbacks(this);
                             }
@@ -295,10 +292,6 @@ public class HomeFragment extends Fragment implements SensorEventListener{
                     handler.postDelayed(runnable_stop,delayMillis);
 
 
-                } else if (isStartRecord == 1){
-                    //结束记录
-                    isStartRecord = 0;
-                    Toast.makeText(getContext(),"已结束记录数据",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -307,9 +300,19 @@ public class HomeFragment extends Fragment implements SensorEventListener{
             @Override
             public void onClick(View view) {
 
-                //finishRecordAndSaveData();
+                //停止服务
                 Intent intent = new Intent(getContext(), MyService.class);
                 getActivity().stopService(intent);
+
+                //停止显示
+                if (isStartRecord == 1){
+                    //结束记录
+                    isStartRecord = 0;
+                    Toast.makeText(getContext(),"已结束记录数据",Toast.LENGTH_SHORT).show();
+                    //结束动画
+                    animationView.cancelAnimation();
+                    voiceRecording.setText("音频未采集");
+                }
 
             }
         });
@@ -418,10 +421,6 @@ public class HomeFragment extends Fragment implements SensorEventListener{
             Toast.makeText(getContext(), "请允许本软件获得访问所有文件的权限", Toast.LENGTH_SHORT).show();
             startActivity(intent);
         }
-
-
-
-
         if (!permissionList.isEmpty()){
 
             String [] permissions = permissionList.toArray(new String[permissionList.size()]);
@@ -466,19 +465,13 @@ public class HomeFragment extends Fragment implements SensorEventListener{
                 //每隔一段时间要重复执行的代码
                 //开始记录数据时
                 if (isStartRecord==1) {
-                    currentAngularspeed.append(System.currentTimeMillis()).append(",")
-                            .append(df.format(gx)).append(",")
-                            .append(df.format(gy)).append(",")
-                            .append(df.format(gz)).append("\n");
 
                     currentgyroscope.append(System.currentTimeMillis()).append(",")
                             .append(df.format(angleX)).append(",")
                             .append(df.format(angleY)).append(",")
                             .append(df.format(angleZ)).append("\n");
 
-                    gyroscopeInfo.setText("三轴角速度：\t\t\t\t    \n"+"axisX: " + df.format(gx )+ "\n"
-                            + "axisY: " + df.format(gy) + "\n"
-                            + "axisZ: " + df.format(gz));
+
 
                     gyroscope2Info.setText("陀螺仪检测到当前\nx轴的转动角度为\n"+df.format(angleX)
                             +"\ny轴的转动角度为\n"+df.format(angleY)
@@ -490,32 +483,7 @@ public class HomeFragment extends Fragment implements SensorEventListener{
         };
         handler.postDelayed(runnable_gyroscope, Time);	//启动计时器
 
-        //检测屏幕开关状态，250ms一次 (4Hz)
-        Runnable runnable_scr = new Runnable() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void run() {
-                handler.postDelayed(this, 250);
-                //每隔一段时间要重复执行的代码
 
-                if (isStartRecord==1) {
-                    if (display.getState() == 2 && screenState == 1) {
-                        //屏幕是由熄灭到开启
-                        currentSrc.append(System.currentTimeMillis()).append(",");
-                        currentSrc_HHMMSS.append(getTimeFromInt(System.currentTimeMillis())).append(", ");
-                    } else if (display.getState() == 1 && screenState == 2) {
-                        //屏幕是由开启到熄灭
-                        currentSrc.append(System.currentTimeMillis()).append("\n");
-                        currentSrc_HHMMSS.append(getTimeFromInt(System.currentTimeMillis())).append("\n");
-                    }
-                    screenState = display.getState();
-
-                }
-
-                screenInfo.setText("亮屏时间(保存后重置)"+"\n" + "\t\t\ton\t\t\t\t\t\t\t\toff\n"+currentSrc_HHMMSS );
-            }
-        };
-        handler.postDelayed(runnable_scr,250);
 
 
     }
@@ -648,109 +616,6 @@ public class HomeFragment extends Fragment implements SensorEventListener{
         });
     }
 
-    private void startAudioRecord() {
-        audioRecorder = AudioRecorder.getInstance();
-        if (isStartRecord==1){
-            if (audioRecorder.getStatus()==AudioRecorder.Status.STATUS_NO_READY) {
-                String fileName = "audio";
-                audioRecorder.createDefaultAudio(fileName);
-                audioRecorder.startRecord(null);
-                //显示正在录音
-                animationView.playAnimation();
-            }
-        }
-    }
-
-    private void finishRecordAndSaveData() {
-        Date date = new Date(System.currentTimeMillis());
-/*                WriteData2CSVThread myThread_saveposision = new WriteData2CSVThread(currentPosition,FILE_FOLDER + FOLDER_POSITION,"position_data_" +formatter.format(date)+".csv");
-                myThread_saveposision.run();*/
-
-/*                Date date = new Date(System.currentTimeMillis());
-                WriteData2CSVThread myThread_saveposision = new WriteData2CSVThread(currentPosition,FILE_FOLDER + FOLDER_POSITION,"position_data_" +formatter.format(date)+".csv");
-                myThread_saveposision.run();*/
-
-        WriteData2CSVThread myThread_saveacc = new WriteData2CSVThread(currentAcc,FILE_FOLDER + FOLDER_ACC,"acc_data_" +formatter.format(date)+".csv");
-        myThread_saveacc.run();
-
- /*               WriteData2CSVThread myThread_savesrc = new WriteData2CSVThread(currentSrc,FILE_FOLDER + FOLDER_SCR,"scr_data_" +formatter.format(date)+".csv");
-                myThread_savesrc.run();*/
-
-/*                WriteData2CSVThread myThread_saveAngularspeed = new WriteData2CSVThread(currentAngularspeed,FILE_FOLDER + FOLDER_AS,"Angularspeed_data_" +formatter.format(date)+".csv");
-                myThread_saveAngularspeed.run();*/
-
-        WriteData2CSVThread myThread_savegyroscope = new WriteData2CSVThread(currentgyroscope,FILE_FOLDER + FOLDER_G,"gyroscope_data_" +formatter.format(date)+".csv");
-        myThread_savegyroscope.run();
-
-/*                        .append(df.format(angleX)).append(",")
-                        .append(df.format(angleY)).append(",")
-                        .append(df.format(angleZ)).append("\n");*/
-
-        Toast.makeText(getContext(),"已保存信息",Toast.LENGTH_SHORT).show();
-        //Log.i("FILEE",FILE_FOLDER);
-
-        currentPosition.setLength(0);
-        currentAcc.setLength(0);
-        currentAngularspeed.setLength(0);
-        currentgyroscope.setLength(0);
-        currentSrc.setLength(0);
-        currentSrc_HHMMSS.setLength(0);
-
-        uploadFile(FILE_FOLDER + FOLDER_ACC + File.separator+"acc_data_" +formatter.format(date)+".csv",
-                FILE_FOLDER + FOLDER_G + File.separator+"gyroscope_data_" +formatter.format(date)+".csv",
-                FILE_FOLDER + File.separator+"sound_data"+File.separator+"wav"+File.separator+"audio.wav",
-                "acc_data_" +formatter.format(date)+".csv",
-                "gyroscope_data_" +formatter.format(date)+".csv",
-                "audio.wav");
-    }
-
-    private void uploadFile(String path1, String path2,String path3,String filename1,String filename2,String filename3) {
-        File file1 = new File(path1);
-        File file2 = new File(path2);
-        File file3 = new File(path3);
-
-        MultipartBody body = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("file1",filename1, RequestBody.create(MediaType.parse("text/csv"),file1))
-                .addFormDataPart("file2",filename2,RequestBody.create(MediaType.parse("text/csv"),file2))
-                .addFormDataPart("file3",filename3,RequestBody.create(MediaType.parse("audio/x-wav"),file3)) //   contentType.put(".wav" , "audio/x-wav");
-                .build();
-        Request request = new Request.Builder()
-                .url(url)
-                .post(body)
-                .build();
-        //Toast.makeText(MainActivity.this,"开始上传"+file.getAbsolutePath(),Toast.LENGTH_LONG).show();
-        //并没有创建，进入不到这里
-        okHttpClient = new OkHttpClient.Builder()
-                .connectTimeout(20, TimeUnit.SECONDS)
-                .readTimeout(30,TimeUnit.SECONDS)
-                .build();
-        Call call = okHttpClient.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                Log.d("HomeFragment", "onFailure: "+e.getLocalizedMessage());
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        //Toast.makeText(MainActivity.this,"上传失败"+file1.getAbsolutePath(),Toast.LENGTH_LONG).show();
-//                    }
-//                });
-            }
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                final String res = response.body().string();
-                Log.d("HomeFragment", "onResponse: "+res);
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        result.setText(res);
-//                    }
-//                });
-            }
-        });
-
-    }
 
 
     @Override
@@ -1000,22 +865,6 @@ public class HomeFragment extends Fragment implements SensorEventListener{
         }
     }
 
-    protected void addText(double latitude,double longitude,String text){
-        //文字覆盖物位置坐标
-        LatLng llText = new LatLng(latitude, longitude);
-
-        //构建TextOptions对象
-        OverlayOptions mTextOptions = new TextOptions()
-                .text(text) //文字内容
-                .bgColor(0xAA92D050) //背景色
-                .fontSize(24) //字号
-                .fontColor(0xFF085820) //文字颜色
-                .rotate(-0) //旋转角度
-                .position(llText);
-
-        //在地图上显示文字覆盖物
-        Overlay mText = mBaiduMap.addOverlay(mTextOptions);
-    }
 
     @Override
     public void onDestroy() {
@@ -1054,29 +903,7 @@ public class HomeFragment extends Fragment implements SensorEventListener{
 
 
 
-    // 把毫秒转为hh小时mm分钟ss秒的格式
-    public String getTimeFromInt(long time){
-        // time为毫秒，转为秒
-        time /= 1000;
 
-        long hours = 0;
-        long minutes = 0;
-        long seconds = 0;
-        hours = time / 3600 %24 +8;
-        minutes = (time%3600) / 60;
-        seconds = time % 60;
-
-        String result = "";
-
-        if(hours != 0){
-            result += (String.valueOf(hours)+":");
-        }
-        if(hours != 0 || minutes != 0){
-            result += (String.valueOf(minutes)+":");
-        }
-        result += (String.valueOf(seconds)+" ");
-        return result;
-    }
 
     public void getwifimac(){ //获取wifi——mac
         String sdk = Build.VERSION.SDK;
