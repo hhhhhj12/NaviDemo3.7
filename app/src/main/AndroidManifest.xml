@@ -43,7 +43,11 @@
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.CAPTURE_VIDEO_OUTPUT"
         tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"/>
+
 
 <!--    android:name="cn.edu.cdut.navidemo3.extra.data.ESApplication"-->
     <application

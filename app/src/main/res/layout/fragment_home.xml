@@ -122,40 +122,15 @@
         </cn.edu.cdut.navidemo3.RoundRelativeLayout>
 
 
-        <cn.edu.cdut.navidemo3.RoundRelativeLayout
-            android:id="@+id/gyroscopeInfo_R"
-            android:layout_width="150dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginLeft="40dp"
-            android:layout_below="@+id/accInfo_R"
-            android:background="#FBD26A"
-            android:padding="5dp"
-            android:elevation="3dp">
-            <TextView
-                android:id="@+id/gyroscopeInfo"
 
-                android:text="angular velocity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                />
-            <ImageView
-                android:src="@drawable/ic_baseline_360_24"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true">
-
-            </ImageView>
-        </cn.edu.cdut.navidemo3.RoundRelativeLayout>
 
         <cn.edu.cdut.navidemo3.RoundRelativeLayout
             android:id="@+id/gyroscope2Info_R"
             android:layout_width="180dp"
             android:layout_height="150dp"
             android:layout_marginTop="50dp"
-            android:layout_marginLeft="130dp"
-            android:layout_below="@+id/gyroscopeInfo_R"
+            android:layout_marginLeft="30dp"
+            android:layout_below="@+id/accInfo_R"
             android:background="#40E0D0"
             android:padding="5dp"
             android:elevation="3dp">
@@ -176,40 +151,15 @@
             </ImageView>
         </cn.edu.cdut.navidemo3.RoundRelativeLayout>
 
-        <cn.edu.cdut.navidemo3.RoundRelativeLayout
-            android:id="@+id/screenInfo_R"
-            android:layout_width="180dp"
-            android:layout_height="100dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="50dp"
-            android:layout_below="@+id/gyroscope2Info_R"
-            android:background="#B3BABA"
-            android:padding="5dp"
-            android:elevation="3dp">
-            <TextView
-                android:id="@+id/screenInfo"
-                android:text="screenInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
 
-                />
-            <ImageView
-                android:src="@drawable/ic_baseline_phone_iphone_24"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true">
-
-            </ImageView>
-        </cn.edu.cdut.navidemo3.RoundRelativeLayout>
 
 
         <Button
             android:id="@+id/btn_startRecorder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="开始or结束记录数据"
-            android:layout_below="@+id/screenInfo_R"
+            android:text="开始采集数据"
+            android:layout_below="@+id/gyroscope2Info_R"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="30dp"
@@ -220,8 +170,8 @@
             android:id="@+id/btn_savedata"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="保存数据"
-            android:layout_below="@+id/screenInfo_R"
+            android:text="停止采集数据"
+            android:layout_below="@+id/gyroscope2Info_R"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:layout_marginTop="30dp">
@@ -246,30 +196,11 @@
             android:layout_height="140dp"
             android:layout_marginTop="30dp"
             android:layout_below="@id/accInfo_R"
-            android:layout_marginLeft="210dp">
+            android:layout_marginLeft="220dp">
         </ImageView>
 
-        <ImageView
-            android:id="@+id/img_gyro"
-            android:src="@drawable/gyro"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:layout_below="@+id/gyroscopeInfo_R"
-            android:layout_marginTop="50dp"
-            >
-        </ImageView>
 
-        <ImageView
-            android:id="@+id/img_light"
-            android:src="@drawable/ic_baseline_light_mode_24"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/screenInfo_R"
-            android:layout_below="@id/gyroscope2Info_R">
 
-        </ImageView>
 
         <TextView
             android:id="@+id/text_voicecatch"
@@ -307,7 +238,8 @@
             android:background="#C8EBFA"
             android:elevation="3dp"
             android:padding="5dp"
-            tools:ignore="MissingConstraints">
+            tools:ignore="MissingConstraints"
+            android:visibility="gone">
 
             <CheckBox
                 android:id="@+id/CB_isdeveloper"

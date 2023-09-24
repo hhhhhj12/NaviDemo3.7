@@ -83,21 +83,7 @@
             android:layout_weight="10"/>
 
 
-    <Button
-        android:id="@+id/btn_savelables"
-        android:text="@string/btn_savelables"
-        android:layout_gravity="bottom|right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    </Button>
 
 
-    <Button
-        android:id="@+id/btn_uploadlables"
-        android:text="@string/btn_uploadlables"
-        android:layout_gravity="bottom|right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    </Button>
 </LinearLayout>
 

@@ -5,6 +5,14 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/baseline_create_24"
+            android:title="@string/write_lable" />
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_baseline_edgesensor_high_24"
+            android:title="@string/menu_datacollection" />
+        <item
             android:id="@+id/nav_stress"
             android:icon="@drawable/ic_baseline_directions_run_24"
             android:title="@string/menu_stress" />
@@ -13,18 +21,12 @@
             android:id="@+id/nav_summary"
             android:icon="@drawable/ic_baseline_summarize_24"
             android:title="@string/menu_summary" />
-        <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_baseline_edgesensor_high_24"
-            android:title="@string/menu_datacollection" />
+
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_baseline_map_24"
             android:title="@string/menu_trackmap" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_baseline_mic_24"
-            android:title="@string/menu_record" />
+
 
 
     </group>

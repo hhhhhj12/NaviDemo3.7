@@ -20,6 +20,7 @@
     <string name="menu_filelocation">查看文件保存位置</string>
     <string name="menu_trackmap">轨迹地图</string>
     <string name="menu_record">录制环境音</string>
+    <string name="write_lable">打标签</string>
     <string name="menu_stress">活动记录</string>
     <string name="menu_summary">历史活动总览</string>
 

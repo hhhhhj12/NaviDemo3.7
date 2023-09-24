@@ -11,6 +11,7 @@ import static cn.edu.cdut.navidemo3.extra.data.ESIntentService.LOG_TAG;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.AppOpsManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -153,6 +154,31 @@ public class MainActivity extends BaseActivity {
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.INTERNET )!= PackageManager.PERMISSION_GRANTED){
             permissionList.add(Manifest.permission.INTERNET);
         }
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.BLUETOOTH_SCAN )!= PackageManager.PERMISSION_GRANTED){
+            permissionList.add(Manifest.permission.BLUETOOTH_SCAN);
+        }
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.BLUETOOTH_CONNECT )!= PackageManager.PERMISSION_GRANTED){
+            permissionList.add(Manifest.permission.BLUETOOTH_CONNECT);
+        }
+
+        if (permissionList.size()!=0){
+            // 请求权限
+            ActivityCompat.requestPermissions((Activity) this,permissionList.toArray((new String[permissionList.size()])), 0);
+        }
+
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R ||
+                Environment.isExternalStorageManager()) {
+            //Toast.makeText(getContext(), "已获得访问所有文件的权限", Toast.LENGTH_SHORT).show();
+        } else {
+            Intent intent = new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+            Toast.makeText(getContext(), "请允许本软件获得访问所有文件的权限", Toast.LENGTH_SHORT).show();
+            startActivity(intent);
+        }
+
+        if (!hasPermission()){
+            Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+            startActivity(intent);}
 
         if (permissionList.size()!=0){
             // 请求权限
@@ -168,7 +194,11 @@ public class MainActivity extends BaseActivity {
             startActivity(intent);
         }
     }
-
+    private boolean hasPermission() {
+        AppOpsManager appOps = (AppOpsManager) getSystemService(Context.APP_OPS_SERVICE);
+        int mode = appOps.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, android.os.Process.myUid(), getPackageName());
+        return mode == AppOpsManager.MODE_ALLOWED;
+    }
 
     public static MainActivity getInstance(){
         return instance;

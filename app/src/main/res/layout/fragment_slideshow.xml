@@ -4,81 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.slideshow.SlideshowFragment"
+    tools:context=".LabelActivity"
     android:orientation="vertical">
-
     <TextView
-        android:id="@+id/text_slideshow"
+        android:id="@+id/tv_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:visibility="invisible"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/text_count"
-        android:text="倒计时"
-        android:textSize="20sp"
+        android:gravity="center"/>
+    <CalendarView
+        android:id="@+id/calendarViewId"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:gravity="center">
-
-    </TextView>
-
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="150dp"
-        android:src="@drawable/icon_0328_stop" />
+        android:layout_height="wrap_content" />
 
 
-    <LinearLayout
+    <Button
+        android:id="@+id/add_label_f"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:text="添加数据" />
 
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="开始录音1分钟" />
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="100dp"
-            android:text="停止录音" />
-
-    </LinearLayout>
-
-    <TextView
-        android:layout_marginLeft="200dp"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/btn_selectDate"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="（该操作不会保存录音）">
+        android:text="选择日期" />
 
-    </TextView>
-
-    <TextView
-        android:layout_marginTop="50dp"
-        android:background="#FFFCCC"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/btn_dropTable"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="建议及时查看保存在wav文件夹中的录音文件\n并把它们分享到邮箱，以免文件占用内存过大">
+        android:text="清空数据" />
 
-    </TextView>
 
+
+    <Button
+        android:id="@+id/btn_uploadlables"
+        android:text="@string/btn_uploadlables"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </Button>
+
+    <ListView
+        android:id="@+id/view_all"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
 </LinearLayout>
